@@ -1,4 +1,4 @@
-const CoffeeData = [
+ const CoffeeData = [
   {
     id: 'C1',
     name: 'Americano',
