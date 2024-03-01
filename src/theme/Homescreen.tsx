@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -133,7 +134,21 @@ const Homescreen = () => {
             </View>
           ))}
         </ScrollView>
-        flatlist coffeelist
+        {/* flatlist coffeelist */}
+        <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.FlatListContainer}
+        keyExtractor={item =>item.id}
+        renderItem={item =>{
+          return(
+            <TouchableOpacity>
+
+            </TouchableOpacity>
+          )
+        }}
+        data={sortedCoffee}/>
+        {/* flatlist BeanList */}
       </ScrollView>
     </View>
   );
@@ -193,6 +208,12 @@ const styles = StyleSheet.create({
     color: COLORS.primaryLightGreyHex,
     marginBottom: SPACING.space_4,
   },
+  FlatListContainer:{
+    gap:SPACING.space_20,
+    paddingVertical:SPACING.space_20,
+    paddingHorizontal:SPACING.space_30,
+  },
+
 });
 
 export default Homescreen;
