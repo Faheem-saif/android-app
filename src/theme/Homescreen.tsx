@@ -14,6 +14,8 @@ import {BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING} from './theme';
 import {StatusBar} from 'react-native';
 import HeaderBar from '../components/HeaderBar';
 import CustomIcon from '../components/CustomIcon';
+import CoffeeCard from '../components/CoffeeCard';
+import CoffeeData from '../data/CoffeeData';
 
 const getCategoriesFromData = (data: any) => {
   let temp: any = {};
@@ -62,7 +64,7 @@ const Homescreen = () => {
   );
 
   const tabBarheight = useBottomTabBarHeight();
-  console.log("sortedcoffe",sortedCoffee.length);
+
 
   return (
     <View style={styles.ScreenContainer}>
@@ -140,11 +142,22 @@ const Homescreen = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.FlatListContainer}
         keyExtractor={item =>item.id}
-        renderItem={item =>{
+        renderItem={({item})=>{
           return(
             <TouchableOpacity>
-
+                <CoffeeCard 
+                    id={item.id} 
+                    index={item.index}
+                    type={item.type}
+                    roasted={item.roased}
+                    imagelink_square={item.imagelink_square}
+                    name={item.name}
+                    special_ingredients={item.special_ingredient}
+                    average_rating={item.average_rating}
+                    price={item.prices[2]}
+                    pressButtonhandler={()=>{}}              />
             </TouchableOpacity>
+           
           )
         }}
         data={sortedCoffee}/>
