@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   FlatList,
   ScrollView,
@@ -63,6 +63,7 @@ const Homescreen = () => {
     getCoffeeList(categorieٰIndex.category, CoffeeList),
   );
 
+  const ListRef:any=useRef<FlatList>()
   const tabBarheight = useBottomTabBarHeight();
 
 
@@ -112,6 +113,11 @@ const Homescreen = () => {
               <TouchableOpacity
                 style={styles.categoryScrollViewItem}
                 onPress={() => {
+                  ListRef?.current?.scrollToOffset({
+                    animate:true,
+                    offset:0,
+
+                  })
                   setCategorieIndex({
                     index: index,
                     category: categories[index],
@@ -138,13 +144,14 @@ const Homescreen = () => {
         </ScrollView>
         {/* flatlist coffeelist */}
         <FlatList
+        ref={ListRef}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.FlatListContainer}
         keyExtractor={item =>item.id}
         renderItem={({item})=>{
           return(
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> {}}>
                 <CoffeeCard 
                     id={item.id} 
                     index={item.index}
@@ -162,6 +169,32 @@ const Homescreen = () => {
         }}
         data={sortedCoffee}/>
         {/* flatlist BeanList */}
+        <Text style={styles.CofeeBeanTitle}>Cofee Beans</Text>
+        <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={[styles.FlatListContainer,{marginBottom:tabBarheight}]}
+        keyExtractor={item =>item.id}
+        renderItem={({item})=>{
+          return(
+            <TouchableOpacity onPress={()=> {}}>
+                <CoffeeCard 
+                    id={item.id} 
+                    index={item.index}
+                    type={item.type}
+                    roasted={item.roased}
+                    imagelink_square={item.imagelink_square}
+                    name={item.name}
+                    special_ingredients={item.special_ingredient}
+                    average_rating={item.average_rating}
+                    price={item.prices[2]}
+                    pressButtonhandler={()=>{}}              />
+            </TouchableOpacity>
+           
+          )
+        }}
+        data={BeanList}/>
+
       </ScrollView>
     </View>
   );
@@ -226,6 +259,12 @@ const styles = StyleSheet.create({
     paddingVertical:SPACING.space_20,
     paddingHorizontal:SPACING.space_30,
   },
+  CofeeBeanTitle:{
+  fontSize:FONTSIZE.size_18,
+  marginLeft:SPACING.space_30,
+  marginTop:SPACING.space_20,
+  color:COLORS.primaryLightGreyHex
+  }
 
 });
 
