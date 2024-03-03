@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {
+  Dimensions,
   FlatList,
   ScrollView,
   StyleSheet,
@@ -55,8 +56,8 @@ const Homescreen = () => {
   const [searchText, setSearchText] = useState('');
 
   const [categorieٰIndex, setCategorieIndex] = useState({
-    index: 0,
-    category: categories[0],
+    index: 1,
+    category: categories[1],
   });
 
   const [sortedCoffee, setSortedCoffee] = useState(
@@ -74,12 +75,9 @@ const Homescreen = () => {
       });
       setCategorieIndex({index: 0, category: categories[0]});
       setSortedCoffee([
-        ...CoffeeList.filter((item: any) => {
-          item.name.toLowerCase().includes(search.toLowerCase());
-        }),
+        ...CoffeeList.filter((item:any)=>
+        item.name.toLowerCase().includes(search.toLowerCase())),
       ]);
-    
-      
     }
   };
   const resetSearch = () => {
@@ -129,9 +127,9 @@ const Homescreen = () => {
           />
           {searchText.length > 0 ? (
             <TouchableOpacity
-            onPress={()=>{
-              resetSearch()
-            }}>
+              onPress={() => {
+                resetSearch();
+              }}>
               <CustomIcon
                 style={styles.InputIcon}
                 name="close"
@@ -189,11 +187,11 @@ const Homescreen = () => {
         {/* flatlist coffeelist */}
         <FlatList
           ref={ListRef}
-          ListEmptyComponent={<View>
-            <Text style={styles.CategoriesText}>
-               Sorry! Faheem 
-            </Text>
-          </View>}
+          ListEmptyComponent={
+            <View style={styles.EmptyListConatainer}>
+              <Text style={styles.CategoriesText}>Sorry! Faheem</Text>
+            </View>
+          }
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.FlatListContainer}
@@ -261,8 +259,14 @@ const styles = StyleSheet.create({
   scrollviewflex: {
     flexGrow: 1,
   },
-  EmptyListConatainer:{
-    justifyContent:'center'
+  EmptyListConatainer: 
+  {
+
+    width:Dimensions.get('window').width- SPACING.space_30 *3,
+    alignItems:'center',
+    justifyContent: 'center'
+    ,
+    paddingVertical:SPACING.space_36*3.6,
   },
 
   Screentitle: {
